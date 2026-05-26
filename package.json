@@ -1,0 +1,17 @@
+{
+  "name": "tdea-informa",
+  "version": "1.0.0",
+  "description": "TdeA Informa - Sistema de información institucional universitaria",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.9"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

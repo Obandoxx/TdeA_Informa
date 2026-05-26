@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noticias - Informa TdeA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white min-h-screen flex flex-col">
+
+  <!-- Top Navbar -->
+  <header class="bg-gradient-to-r from-[#115e59] to-[#0f766e] shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Brand -->
+      <div class="flex items-center gap-4">
+        <img src="/assets/Logo.jpeg" alt="TdeA Logo"
+             class="w-12 h-12 rounded-2xl object-cover shadow" />
+        <div>
+          <h2 class="text-white font-bold tracking-wide text-lg leading-tight">INFORMA TDEA</h2>
+          <p class="text-[#86efac] tracking-widest text-[10px]">INSTITUCIÓN UNIVERSITARIA</p>
+        </div>
+      </div>
+      <!-- Nav links -->
+      <nav class="hidden md:flex items-center gap-8 text-white/80 font-medium text-sm">
+        <a href="/dashboard" class="hover:text-white transition-colors">Inicio</a>
+        <a href="/news" class="text-white border-b-2 border-[#86efac] pb-0.5">Noticias</a>
+        <span class="hover:text-white transition-colors cursor-pointer">Eventos</span>
+        <span class="hover:text-white transition-colors cursor-pointer">Foro</span>
+      </nav>
+      <!-- Right actions -->
+      <div class="flex items-center gap-3">
+        <div class="hidden md:flex items-center gap-1.5 text-white/80 text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span>Sede Robledo</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </div>
+        <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center overflow-hidden cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+               fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+          </svg>
+        </div>
+        <a href="/dashboard"
+           class="flex items-center gap-1.5 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors text-sm font-medium">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 19-7-7 7-7"/>
+            <path d="M19 12H5"/>
+          </svg>
+          Volver
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-6 py-10">
+
+    <!-- Featured news hero -->
+    <div class="relative rounded-3xl overflow-hidden h-80 md:h-[420px] mb-10 shadow-xl group cursor-pointer">
+      <img
+        src="/assets/Inscripciones.jpg"
+        alt="Inscripciones 2026-2"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent"></div>
+      <!-- Vigilada tag -->
+      <div class="absolute top-5 right-5 bg-black/40 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full">
+        VIGILADA MinEducación
+      </div>
+      <!-- Content overlay -->
+      <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+        <span class="text-[#86efac] text-sm font-semibold tracking-widest mb-3 block">
+          2026-04 — 2026-06
+        </span>
+        <h1 class="text-white text-3xl md:text-5xl font-bold leading-tight mb-2">Inscripciones 2026-2</h1>
+        <p class="text-white/80 text-lg mb-6">Transforma tu futuro</p>
+        <span class="inline-block px-6 py-2 border border-white/50 text-white text-sm rounded-full hover:bg-white/20 transition-colors cursor-pointer">
+          EXPLORAR
+        </span>
+      </div>
+    </div>
+
+    <!-- Section heading -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-[#134e4a] text-2xl font-bold">Noticias Recientes</h2>
+      <div class="flex items-center gap-2">
+        <span class="text-sm text-gray-500">Ordenar por</span>
+        <select class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 text-[#134e4a] focus:outline-none focus:ring-2 focus:ring-[#14b8a6]">
+          <option>Más reciente</option>
+          <option>Más antiguo</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- News grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+
+      <!-- Card 1 -->
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer group">
+        <div class="overflow-hidden h-48">
+          <img
+            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80"
+            alt="Premios"
+            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#0f766e] tracking-wide uppercase">Institucional</span>
+          <h3 class="text-[#134e4a] font-bold text-base leading-snug mt-2 mb-2">
+            Premios a la Excelencia de Guarne
+          </h3>
+          <p class="text-gray-500 text-sm line-clamp-3">
+            En una ceremonia cargada de emoción y reconocimiento, la Administración Municipal de Guarne,
+            el 27 de marzo de 2026, realizó la gala de los Premios a la Excelencia...
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer group">
+        <div class="overflow-hidden h-48">
+          <img
+            src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80"
+            alt="Plan de Desarrollo"
+            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#0f766e] tracking-wide uppercase">Institucional</span>
+          <h3 class="text-[#134e4a] font-bold text-base leading-snug mt-2 mb-2">
+            TdeA cerró su Plan de Desarrollo 2022-2026
+          </h3>
+          <p class="text-gray-500 text-sm line-clamp-3">
+            El TdeA presentó el balance de la vigencia 2025 y el cierre de su Plan de Desarrollo
+            2022-2026, con un cumplimiento global del 95%...
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer group">
+        <div class="overflow-hidden h-48">
+          <img
+            src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80"
+            alt="Educación financiera"
+            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#0f766e] tracking-wide uppercase">Académico</span>
+          <h3 class="text-[#134e4a] font-bold text-base leading-snug mt-2 mb-2">
+            Educación financiera con enfoque de género
+          </h3>
+          <p class="text-gray-500 text-sm line-clamp-3">
+            "Aprender educación financiera con enfoque de género no es un tema solamente educativo,
+            también se trata de un tema de derechos"...
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-10 h-2 bg-[#14b8a6] rounded-full"></div>
+        <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+        <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+        <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
+      </div>
+      <button class="px-8 py-3 bg-[#115e59] hover:bg-[#134e4a] text-white rounded-xl font-semibold text-sm transition-colors shadow-md">
+        Ver más noticias →
+      </button>
+    </div>
+
+  </main>
+
+</body>
+</html>
