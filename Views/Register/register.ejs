@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registro - Informa TdeA</title>
+  <link rel="icon" type="image/jpeg" href="/assets/Logo.jpeg" />
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen flex">
@@ -45,40 +46,123 @@
       </div>
 
       <!-- Heading -->
-      <div class="mb-10">
+      <div class="mb-8">
         <h2 class="text-[#134e4a] text-4xl font-bold mb-2">Crear cuenta</h2>
         <p class="text-[#0f766e] text-base">Completa los datos para registrarte.</p>
       </div>
 
+      <!-- Error -->
+      <% if (error) { %>
+      <div class="mb-5 flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 text-sm font-medium px-4 py-3 rounded-xl">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+        <%= error %>
+      </div>
+      <% } %>
+
       <!-- Form -->
-      <form action="/dashboard" method="GET" class="flex flex-col gap-5">
+      <form action="/register" method="POST" class="flex flex-col gap-4">
+
+        <!-- Documento -->
         <div>
-          <label class="block text-[#134e4a] font-semibold text-sm mb-2">Nombre</label>
+          <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">Número de documento</label>
           <input
             type="text"
-            name="name"
-            placeholder="Tu nombre completo"
-            class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
+            name="documento"
+            inputmode="numeric"
+            placeholder="Ej: 1234567890"
+            value="<%= old.documento || '' %>"
+            required
+            class="w-full px-5 py-3 bg-white border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
           />
         </div>
+
+        <!-- Nombre -->
         <div>
-          <label class="block text-[#134e4a] font-semibold text-sm mb-2">Correo electrónico</label>
+          <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">Nombre completo</label>
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Tu nombre completo"
+            value="<%= old.nombre || '' %>"
+            required
+            class="w-full px-5 py-3 bg-white border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
+          />
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">Correo electrónico</label>
           <input
             type="email"
             name="email"
             placeholder="nombre@tdea.edu.co"
-            class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
+            value="<%= old.email || '' %>"
+            required
+            class="w-full px-5 py-3 bg-white border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
           />
         </div>
+
+        <!-- Edad + Género -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">Edad</label>
+            <input
+              type="number"
+              name="edad"
+              placeholder="Ej: 20"
+              min="15"
+              max="99"
+              value="<%= old.edad || '' %>"
+              required
+              class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
+            />
+          </div>
+          <div>
+            <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">Género</label>
+            <select
+              name="genero"
+              required
+              class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-[#134e4a] focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
+            >
+              <option value="" disabled <%= !old.genero ? 'selected' : '' %>>Seleccionar</option>
+              <option value="Masculino" <%= old.genero === 'Masculino' ? 'selected' : '' %>>Masculino</option>
+              <option value="Femenino" <%= old.genero === 'Femenino' ? 'selected' : '' %>>Femenino</option>
+              <option value="Otro" <%= old.genero === 'Otro' ? 'selected' : '' %>>Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Facultad -->
         <div>
-          <label class="block text-[#134e4a] font-semibold text-sm mb-2">Contraseña</label>
+          <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">Facultad</label>
+          <select
+            name="facultad"
+            required
+            class="w-full px-5 py-3 bg-white border border-gray-200 rounded-xl text-[#134e4a] focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
+          >
+            <option value="" disabled <%= !old.facultad ? 'selected' : '' %>>Selecciona tu facultad</option>
+            <option value="INGENIERIA" <%= old.facultad === 'INGENIERIA' ? 'selected' : '' %>>Ingeniería</option>
+            <option value="CIENCIAS_ADMINISTRATIVAS_Y_ECONOMICAS" <%= old.facultad === 'CIENCIAS_ADMINISTRATIVAS_Y_ECONOMICAS' ? 'selected' : '' %>>Ciencias Administrativas y Económicas</option>
+            <option value="CIENCIAS_BASICAS_Y_AREAS_COMUNES" <%= old.facultad === 'CIENCIAS_BASICAS_Y_AREAS_COMUNES' ? 'selected' : '' %>>Ciencias Básicas y Áreas Comunes</option>
+            <option value="CIENCIAS_SOCIALES_Y_EDUCACION" <%= old.facultad === 'CIENCIAS_SOCIALES_Y_EDUCACION' ? 'selected' : '' %>>Ciencias Sociales y Educación</option>
+            <option value="TECNOLOGIAS_Y_CIENCIAS_EXACTAS" <%= old.facultad === 'TECNOLOGIAS_Y_CIENCIAS_EXACTAS' ? 'selected' : '' %>>Tecnologías y Ciencias Exactas</option>
+          </select>
+        </div>
+
+        <!-- Contraseña -->
+        <div>
+          <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">Contraseña</label>
           <input
             type="password"
             name="password"
-            placeholder="••••••••"
-            class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
+            placeholder="Mínimo 6 caracteres"
+            minlength="6"
+            required
+            class="w-full px-5 py-3 bg-white border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
           />
+          <p class="text-gray-400 text-xs mt-1 ml-1">Mínimo 6 caracteres</p>
         </div>
+
         <button
           type="submit"
           class="w-full py-4 bg-[#115e59] hover:bg-[#134e4a] text-white rounded-xl font-semibold text-base transition-colors duration-200 shadow-md mt-1"
@@ -88,7 +172,7 @@
       </form>
 
       <!-- Back to login -->
-      <div class="mt-8 text-center">
+      <div class="mt-6 text-center">
         <p class="text-gray-500 text-sm">
           ¿Ya tienes cuenta?
           <a href="/" class="text-[#0f766e] font-semibold hover:underline ml-1">Inicia sesión</a>

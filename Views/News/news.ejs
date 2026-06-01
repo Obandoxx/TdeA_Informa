@@ -4,9 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Noticias - Informa TdeA</title>
+  <link rel="icon" type="image/jpeg" href="/assets/Logo.jpeg" />
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white min-h-screen flex flex-col">
+
+  <%
+    const catLabel = {
+      'INGENIERIA': 'Ingeniería',
+      'CIENCIAS_ADMINISTRATIVAS_Y_ECONOMICAS': 'Ciencias Administrativas',
+      'CIENCIAS_BASICAS_Y_AREAS_COMUNES': 'Ciencias Básicas',
+      'CIENCIAS_SOCIALES_Y_EDUCACION': 'Ciencias Sociales',
+      'TECNOLOGIAS_Y_CIENCIAS_EXACTAS': 'Tecnologías'
+    };
+  %>
 
   <!-- Top Navbar -->
   <header class="bg-gradient-to-r from-[#115e59] to-[#0f766e] shadow-lg sticky top-0 z-50">
@@ -24,38 +35,26 @@
       <nav class="hidden md:flex items-center gap-8 text-white/80 font-medium text-sm">
         <a href="/dashboard" class="hover:text-white transition-colors">Inicio</a>
         <a href="/news" class="text-white border-b-2 border-[#86efac] pb-0.5">Noticias</a>
-        <span class="hover:text-white transition-colors cursor-pointer">Eventos</span>
-        <span class="hover:text-white transition-colors cursor-pointer">Foro</span>
       </nav>
       <!-- Right actions -->
       <div class="flex items-center gap-3">
-        <div class="hidden md:flex items-center gap-1.5 text-white/80 text-sm">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
-               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-          <span>Sede Robledo</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"
-               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m6 9 6 6 6-6"/>
-          </svg>
-        </div>
-        <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center overflow-hidden cursor-pointer">
+        <span class="hidden md:block text-white/90 text-sm font-medium"><%= user.nombre.split(' ')[0] %></span>
+        <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="8" r="4"/>
             <path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
           </svg>
         </div>
-        <a href="/dashboard"
+        <a href="/logout"
            class="flex items-center gap-1.5 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors text-sm font-medium">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m12 19-7-7 7-7"/>
-            <path d="M19 12H5"/>
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" x2="9" y1="12" y2="12"/>
           </svg>
-          Volver
+          Salir
         </a>
       </div>
     </div>
@@ -64,125 +63,198 @@
   <!-- Main Content -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-6 py-10">
 
-    <!-- Featured news hero -->
-    <div class="relative rounded-3xl overflow-hidden h-80 md:h-[420px] mb-10 shadow-xl group cursor-pointer">
+    <!-- Error alert -->
+    <% if (error) { %>
+    <div class="mb-6 flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 text-sm font-medium px-5 py-4 rounded-xl">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+      <%= error %>
+    </div>
+    <% } %>
+
+    <!-- Banner institucional fijo -->
+    <a href="https://tdea.edu.co/" target="_blank" rel="noopener noreferrer"
+       class="relative rounded-3xl overflow-hidden h-80 md:h-[420px] mb-10 shadow-xl group cursor-pointer block">
       <img
         src="/assets/Inscripciones.jpg"
-        alt="Inscripciones 2026-2"
+        alt="Tecnológico de Antioquia"
         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent"></div>
-      <!-- Vigilada tag -->
       <div class="absolute top-5 right-5 bg-black/40 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full">
         VIGILADA MinEducación
       </div>
-      <!-- Content overlay -->
       <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10">
-        <span class="text-[#86efac] text-sm font-semibold tracking-widest mb-3 block">
-          2026-04 — 2026-06
-        </span>
-        <h1 class="text-white text-3xl md:text-5xl font-bold leading-tight mb-2">Inscripciones 2026-2</h1>
-        <p class="text-white/80 text-lg mb-6">Transforma tu futuro</p>
-        <span class="inline-block px-6 py-2 border border-white/50 text-white text-sm rounded-full hover:bg-white/20 transition-colors cursor-pointer">
-          EXPLORAR
+        <h1 class="text-white text-3xl md:text-5xl font-bold leading-tight mb-2">Tecnológico de Antioquia</h1>
+        <p class="text-white/80 text-lg mb-6">Conoce las últimas noticias en la página oficial de nuestra universidad</p>
+        <span class="inline-block px-6 py-2 border border-white/50 text-white text-sm rounded-full group-hover:bg-white/20 transition-colors">
+          VISITAR SITIO WEB
         </span>
       </div>
-    </div>
+    </a>
 
-    <!-- Section heading -->
+    <!-- Section heading + Publicar button -->
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-[#134e4a] text-2xl font-bold">Noticias Recientes</h2>
-      <div class="flex items-center gap-2">
-        <span class="text-sm text-gray-500">Ordenar por</span>
-        <select class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 text-[#134e4a] focus:outline-none focus:ring-2 focus:ring-[#14b8a6]">
-          <option>Más reciente</option>
-          <option>Más antiguo</option>
-        </select>
-      </div>
+      <% if (user.rol === 'ADMIN') { %>
+      <button
+        onclick="document.getElementById('modal-crear').classList.remove('hidden')"
+        class="flex items-center gap-2 px-5 py-2.5 bg-[#115e59] hover:bg-[#134e4a] text-white rounded-xl font-semibold text-sm transition-colors shadow-md"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+        Publicar noticia
+      </button>
+      <% } %>
     </div>
 
     <!-- News grid -->
+    <% if (noticias.length === 0) { %>
+    <div class="text-center py-16 text-gray-400">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 opacity-50"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+      <p class="text-lg font-medium">No hay más noticias por mostrar</p>
+      <p class="text-sm mt-1">¡Publica la primera usando el botón de arriba!</p>
+    </div>
+    <% } else { %>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-
-      <!-- Card 1 -->
-      <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer group">
+      <% noticias.forEach(function(noticia) { %>
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer group"
+           onclick="openNoticia(this)"
+           data-titulo="<%= noticia.titulo %>"
+           data-subtitulo="<%= noticia.subtitulo %>"
+           data-imagen="<%= noticia.imagen %>"
+           data-descripcion="<%= noticia.descripcion %>">
         <div class="overflow-hidden h-48">
           <img
-            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80"
-            alt="Premios"
+            src="<%= noticia.imagen %>"
+            alt="<%= noticia.titulo %>"
+            onerror="this.src='https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80'"
             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
         <div class="p-6">
-          <span class="text-xs font-semibold text-[#0f766e] tracking-wide uppercase">Institucional</span>
+          <span class="text-xs font-semibold text-[#0f766e] tracking-wide uppercase">
+            <%= catLabel[noticia.categoria] || noticia.categoria %>
+          </span>
           <h3 class="text-[#134e4a] font-bold text-base leading-snug mt-2 mb-2">
-            Premios a la Excelencia de Guarne
+            <%= noticia.titulo %>
           </h3>
-          <p class="text-gray-500 text-sm line-clamp-3">
-            En una ceremonia cargada de emoción y reconocimiento, la Administración Municipal de Guarne,
-            el 27 de marzo de 2026, realizó la gala de los Premios a la Excelencia...
-          </p>
+          <p class="text-gray-500 text-sm line-clamp-3"><%= noticia.descripcion %></p>
         </div>
       </div>
-
-      <!-- Card 2 -->
-      <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer group">
-        <div class="overflow-hidden h-48">
-          <img
-            src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80"
-            alt="Plan de Desarrollo"
-            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-        <div class="p-6">
-          <span class="text-xs font-semibold text-[#0f766e] tracking-wide uppercase">Institucional</span>
-          <h3 class="text-[#134e4a] font-bold text-base leading-snug mt-2 mb-2">
-            TdeA cerró su Plan de Desarrollo 2022-2026
-          </h3>
-          <p class="text-gray-500 text-sm line-clamp-3">
-            El TdeA presentó el balance de la vigencia 2025 y el cierre de su Plan de Desarrollo
-            2022-2026, con un cumplimiento global del 95%...
-          </p>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer group">
-        <div class="overflow-hidden h-48">
-          <img
-            src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80"
-            alt="Educación financiera"
-            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-        <div class="p-6">
-          <span class="text-xs font-semibold text-[#0f766e] tracking-wide uppercase">Académico</span>
-          <h3 class="text-[#134e4a] font-bold text-base leading-snug mt-2 mb-2">
-            Educación financiera con enfoque de género
-          </h3>
-          <p class="text-gray-500 text-sm line-clamp-3">
-            "Aprender educación financiera con enfoque de género no es un tema solamente educativo,
-            también se trata de un tema de derechos"...
-          </p>
-        </div>
-      </div>
-
+      <% }); %>
     </div>
-
-    <!-- Pagination -->
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <div class="w-10 h-2 bg-[#14b8a6] rounded-full"></div>
-        <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-        <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-        <div class="w-2 h-2 bg-gray-300 rounded-full"></div>
-      </div>
-      <button class="px-8 py-3 bg-[#115e59] hover:bg-[#134e4a] text-white rounded-xl font-semibold text-sm transition-colors shadow-md">
-        Ver más noticias →
-      </button>
-    </div>
+    <% } %>
 
   </main>
 
+  <!-- Modal: Ver noticia -->
+  <div id="modal-noticia" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeNoticia()"></div>
+    <div class="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl z-10 overflow-hidden max-h-[90vh] flex flex-col">
+      <!-- Imagen superior -->
+      <div class="relative w-full h-64 flex-shrink-0">
+        <img id="modal-noticia-img" src="" alt=""
+             onerror="this.src='https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80'"
+             class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <button onclick="closeNoticia()"
+                class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+        <!-- Título sobre la imagen -->
+        <div class="absolute bottom-0 left-0 right-0 px-8 pb-6">
+          <h2 id="modal-noticia-titulo" class="text-white text-2xl font-bold leading-snug"></h2>
+        </div>
+      </div>
+      <!-- Descripción -->
+      <div class="px-8 py-6 overflow-y-auto">
+        <p id="modal-noticia-subtitulo" class="text-[#134e4a] font-bold text-sm mb-4"></p>
+        <p id="modal-noticia-descripcion" class="text-gray-600 text-base leading-relaxed"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Crear noticia -->
+  <div id="modal-crear" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+         onclick="document.getElementById('modal-crear').classList.add('hidden')"></div>
+
+    <!-- Modal panel -->
+    <div class="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg p-8 z-10 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-[#134e4a] text-2xl font-bold">Publicar noticia</h3>
+        <button onclick="document.getElementById('modal-crear').classList.add('hidden')"
+                class="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+      </div>
+
+      <form action="/news" method="POST" class="flex flex-col gap-4">
+        <div>
+          <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">Título *</label>
+          <input type="text" name="titulo" placeholder="Título de la noticia" required
+                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent" />
+        </div>
+        <div>
+          <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">Subtítulo *</label>
+          <input type="text" name="subtitulo" placeholder="Breve descripción introductoria" required
+                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent" />
+        </div>
+        <div>
+          <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">Descripción *</label>
+          <textarea name="descripcion" placeholder="Escribe el contenido de la noticia..." required rows="4"
+                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent resize-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">URL de imagen</label>
+          <input type="url" name="imagen" placeholder="https://... (opcional)"
+                 class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent" />
+        </div>
+        <div>
+          <label class="block text-[#134e4a] font-semibold text-sm mb-1.5">Categoría *</label>
+          <select name="categoria" required
+                  class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#134e4a] focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent">
+            <option value="" disabled selected>Selecciona una categoría</option>
+            <option value="INGENIERIA">Ingeniería</option>
+            <option value="CIENCIAS_ADMINISTRATIVAS_Y_ECONOMICAS">Ciencias Administrativas y Económicas</option>
+            <option value="CIENCIAS_BASICAS_Y_AREAS_COMUNES">Ciencias Básicas y Áreas Comunes</option>
+            <option value="CIENCIAS_SOCIALES_Y_EDUCACION">Ciencias Sociales y Educación</option>
+            <option value="TECNOLOGIAS_Y_CIENCIAS_EXACTAS">Tecnologías y Ciencias Exactas</option>
+          </select>
+        </div>
+        <div class="flex gap-3 mt-2">
+          <button type="button"
+                  onclick="document.getElementById('modal-crear').classList.add('hidden')"
+                  class="flex-1 py-3 bg-gray-100 hover:bg-gray-200 text-[#134e4a] rounded-xl font-semibold text-sm transition-colors">
+            Cancelar
+          </button>
+          <button type="submit"
+                  class="flex-1 py-3 bg-[#115e59] hover:bg-[#134e4a] text-white rounded-xl font-semibold text-sm transition-colors shadow-md">
+            Publicar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script>
+  function openNoticia(el) {
+    document.getElementById('modal-noticia-titulo').textContent = el.dataset.titulo || '';
+    document.getElementById('modal-noticia-subtitulo').textContent = el.dataset.subtitulo || '';
+    document.getElementById('modal-noticia-descripcion').textContent = el.dataset.descripcion || '';
+    const img = document.getElementById('modal-noticia-img');
+    img.src = el.dataset.imagen || '';
+    img.alt = el.dataset.titulo || '';
+    document.getElementById('modal-noticia').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNoticia() {
+    document.getElementById('modal-noticia').classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeNoticia();
+  });
+</script>
 </body>
 </html>

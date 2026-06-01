@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - Informa TdeA</title>
+  <link rel="icon" type="image/jpeg" href="/assets/Logo.jpeg" />
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen flex">
@@ -45,19 +46,35 @@
       </div>
 
       <!-- Heading -->
-      <div class="mb-10">
+      <div class="mb-8">
         <h2 class="text-[#134e4a] text-4xl font-bold mb-2">Iniciar sesión</h2>
         <p class="text-[#0f766e] text-base">Ingresa tus credenciales para continuar.</p>
       </div>
 
+      <!-- Alertas -->
+      <% if (success) { %>
+      <div class="mb-5 flex items-center gap-3 bg-[#d9f2e5] border border-[#86efac] text-[#134e4a] text-sm font-medium px-4 py-3 rounded-xl">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17 4 12"/></svg>
+        <%= success %>
+      </div>
+      <% } %>
+      <% if (error) { %>
+      <div class="mb-5 flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 text-sm font-medium px-4 py-3 rounded-xl">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+        <%= error %>
+      </div>
+      <% } %>
+
       <!-- Form -->
-      <form action="/dashboard" method="GET" class="flex flex-col gap-5">
+      <form action="/login" method="POST" class="flex flex-col gap-5">
         <div>
-          <label class="block text-[#134e4a] font-semibold text-sm mb-2">Nombre de usuario</label>
+          <label class="block text-[#134e4a] font-semibold text-sm mb-2">Número de documento</label>
           <input
             type="text"
-            name="name"
-            placeholder="Tu nombre"
+            name="documento"
+            placeholder="Tu número de documento"
+            inputmode="numeric"
+            required
             class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
           />
         </div>
@@ -67,16 +84,9 @@
             type="password"
             name="password"
             placeholder="••••••••"
+            required
             class="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-xl text-[#134e4a] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#14b8a6] focus:border-transparent shadow-sm"
           />
-        </div>
-        <div class="flex items-center justify-between text-sm">
-          <label class="flex items-center gap-2 text-gray-500 cursor-pointer select-none">
-            <input type="checkbox" class="accent-[#115e59]" /> Recordarme
-          </label>
-          <span class="text-[#0f766e] font-semibold cursor-pointer hover:underline">
-            ¿Olvidaste tu contraseña?
-          </span>
         </div>
         <button
           type="submit"
